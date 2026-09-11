@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  googleId      String   @unique
+  name          String
+  email         String   @unique
+  avatarUrl     String?
+  slackAccessToken String?
+  slackTeamId   String?
+  slackChannelId String?
+  createdAt     DateTime @default(now())
+}
+
+model Sender {
+  id    String @id @default(uuid())
+  email String @unique
+}
+
+model EmailJob {
+  id             String   @id @default(uuid())
+  bullJobId      String   @unique   // BullMQ job id, used for idempotency
+  batchId        String
+  userId         String
+  recipientEmail String
+  subject        String
+  body           String
+  senderEmail    String
+  scheduledAt    DateTime
+  sentAt         DateTime?
+  status         String   @default("scheduled") // scheduled | sending | sent | failed
+  errorMessage   String?
+  createdAt      DateTime @default(now())
+
+  @@index([status])
+  @@index([userId])
+  @@index([scheduledAt])
+}
