@@ -2,6 +2,17 @@
 
 A production-slice of ReachInbox's email scheduling system, built for the ReachInbox/Outbox Labs hiring assignment. Backend handles reliable scheduling, sending, rate limiting and persistence; frontend is a dashboard to compose, schedule, and track emails.
 
+## 🚀 Live Demo & Credentials
+The application is fully deployed to the cloud for immediate review.
+
+- **Frontend Dashboard:** [https://reachinbox-dashboard.vercel.app](https://reachinbox-dashboard.vercel.app) *(Login with any Google account)*
+- **Live BullMQ Queue Dashboard:** [https://email-scheduler-mizn.onrender.com/admin/queues](https://email-scheduler-mizn.onrender.com/admin/queues)
+  - **Username:** `admin`
+  - **Password:** `changeme123`
+- **Ethereal Email Inbox (To verify emails were sent):** [https://ethereal.email/login](https://ethereal.email/login)
+  - **Email:** `orville.buckridge@ethereal.email`
+  - **Password:** `faHTs9aNn1S6PAveWj`
+
 ## TL;DR — What's actually implemented
 
 | Feature | Implementation | Route / File |
