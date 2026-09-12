@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { api } from '@/lib/api';
 
 export interface MailingList {
   id: string;
@@ -12,7 +12,7 @@ export function useMailingLists() {
   return useQuery({
     queryKey: ['mailingLists'],
     queryFn: async () => {
-      const { data } = await axios.get<MailingList[]>('/api/mailing-lists');
+      const { data } = await api.get<MailingList[]>('/mailing-lists');
       return data;
     },
   });
@@ -22,7 +22,7 @@ export function useCreateMailingList() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: { name: string; emails: string[] }) => {
-      const { data } = await axios.post('/api/mailing-lists', payload);
+      const { data } = await api.post('/mailing-lists', payload);
       return data;
     },
     onSuccess: () => {
