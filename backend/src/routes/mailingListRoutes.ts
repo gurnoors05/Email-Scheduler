@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { requireAuth } from '../middleware/requireAuth';
+import { authenticateJWT } from '../middleware/auth';
 import { getMailingLists, createMailingList, deleteMailingList } from '../controllers/mailingListController';
 
 const router = Router();
 
-router.use(requireAuth);
+router.use(authenticateJWT);
 
 router.get('/', getMailingLists);
 router.post('/', createMailingList);
