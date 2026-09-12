@@ -13,6 +13,11 @@ The application is fully deployed to the cloud for immediate review.
   - **Email:** `orville.buckridge@ethereal.email`
   - **Password:** `faHTs9aNn1S6PAveWj`
 
+> [!WARNING]
+> **Live Site SMTP Limitation:** The backend is deployed on Render's free tier, which strictly blocks standard outbound SMTP traffic (ports 25, 465, 587). The live demo uses Ethereal (port 587), so emails sent from the live URL will currently timeout in the queue.
+> 
+> **To test emails on the live site:** You can bypass the firewall by setting `SMTP_HOST=sandbox.smtp.mailtrap.io` and `SMTP_PORT=2525` in the live environment variables, as Render ignores non-standard ports like 2525. Otherwise, the app works perfectly when cloned and run locally on port 5000!
+
 ## TL;DR — What's actually implemented
 
 | Feature | Implementation | Route / File |
