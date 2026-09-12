@@ -11,15 +11,27 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  googleId      String   @unique
-  name          String
-  email         String   @unique
-  avatarUrl     String?
+  id               String        @id @default(uuid())
+  googleId         String        @unique
+  email            String        @unique
+  name             String
+  avatarUrl        String?
   slackAccessToken String?
-  slackTeamId   String?
-  slackChannelId String?
-  createdAt     DateTime @default(now())
+  slackTeamId      String?
+  slackChannelId   String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  jobs             EmailJob[]
+  mailingLists     MailingList[]
+}
+
+model MailingList {
+  id        String   @id @default(uuid())
+  name      String
+  emails    String   @db.Text
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Sender {
@@ -28,8 +40,8 @@ model Sender {
 }
 
 model EmailJob {
-  id             String   @id @default(uuid())
-  bullJobId      String   @unique   // BullMQ job id, used for idempotency
+  id             String    @id @default(uuid())
+  bullJobId      String    @unique // BullMQ job id, used for idempotency
   batchId        String
   userId         String
   recipientEmail String
@@ -38,9 +50,10 @@ model EmailJob {
   senderEmail    String
   scheduledAt    DateTime
   sentAt         DateTime?
-  status         String   @default("scheduled") // scheduled | sending | sent | failed
+  status         String    @default("scheduled") // scheduled | sending | sent | failed
   errorMessage   String?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime  @default(now())
+  User           User      @relation(fields: [userId], references: [id])
 
   @@index([status])
   @@index([userId])

@@ -13,6 +13,7 @@ app.use(express.json());
 import authRoutes from './routes/authRoutes';
 import senderRoutes from './routes/senderRoutes';
 import emailRoutes from './routes/emailRoutes';
+import mailingListRoutes from './routes/mailingListRoutes';
 
 // Health check route
 app.get('/api/health', (req: Request, res: Response) => {
@@ -23,6 +24,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/senders', senderRoutes);
 app.use('/api/emails', emailRoutes);
+app.use('/api/mailing-lists', mailingListRoutes);
 
 // Bull-Board Dashboard with Basic Auth
 import { basicAuthMiddleware } from './middleware/basicAuth';
